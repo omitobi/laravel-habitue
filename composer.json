@@ -1,7 +1,7 @@
 
 {
-    "name": "omitobisam/harbitue",
-    "description": "An Http client with the power of collections for your jsonable requests",
+    "name": "omitobisam/laravel-harbitue",
+    "description": "An Http client with the power of collections for your Jsonable requests",
     "license": "MIT",
     "keywords": [
         "harbitue",
@@ -10,10 +10,10 @@
         "Collection",
         "json"
     ],
-    "homepage": "https://omitobi.github.io/harbitue/",
+    "homepage": "https://omitobi.github.io/laravel-harbitue/",
     "support": {
-        "issues": "https://github.com/omitobi/harbitue/issues",
-        "source": "https://github.com/omitobi/harbitue/issues"
+        "issues": "https://github.com/omitobi/laravel-harbitue/issues",
+        "source": "https://github.com/omitobi/laravel-harbitue/issues"
     },
     "authors": [
         {
