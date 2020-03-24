@@ -2,13 +2,15 @@
 
 namespace Harbitue\Contracts;
 
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 
 interface CollectorInterface
 {
     public function attach(string $data, bool $decode = true);
 
-    public function detach(Collection $collection);
+    public function detach(): string;
+
+    public function getAttached(): Collection;
 
     public function get(string $property);
 

@@ -2,7 +2,7 @@
 
 namespace Harbitue\Integration;
 
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 use Harbitue\Contracts\CollectorInterface;
 
 class Collector implements CollectorInterface
@@ -23,7 +23,7 @@ class Collector implements CollectorInterface
         );
     }
 
-    public function detach(Collection $collection)
+    public function detach(): string
     {
         return $this->data->toJson();
     }
@@ -31,6 +31,11 @@ class Collector implements CollectorInterface
     public function get(string $property)
     {
         return $this->data->get($property);
+    }
+
+    public function getAttached(): Collection
+    {
+        return $this->data;
     }
 
     public function intercept(callable $caller)
