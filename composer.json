@@ -1,0 +1,40 @@
+
+{
+    "name": "omitobisam/harbitue",
+    "description": "An Http client with the power of collections for your jsonable requests",
+    "license": "MIT",
+    "keywords": [
+        "harbitue",
+        "Http",
+        "Guzzle",
+        "Collection",
+        "json"
+    ],
+    "homepage": "https://omitobi.github.io/harbitue/",
+    "support": {
+        "issues": "https://github.com/omitobi/harbitue/issues",
+        "source": "https://github.com/omitobi/harbitue/issues"
+    },
+    "authors": [
+        {
+            "name": "Oluwatobi Samuel Omisakin",
+            "email": "omisakin.oluwatobi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Harbitue\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
