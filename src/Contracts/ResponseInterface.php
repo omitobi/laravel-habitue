@@ -4,11 +4,11 @@ namespace Harbitue\Contracts;
 
 interface ResponseInterface
 {
-    public function wrap(string $response);
+    public function wrap($response);
 
-    public function unwrap(): string;
+    public function unwrap();
 
-    public function getWrapped(): CollectorInterface;
+    public function getWrapped();
 
-    public static function make(string $response);
+    public static function make($response);
 }

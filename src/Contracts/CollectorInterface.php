@@ -3,18 +3,11 @@
 namespace Harbitue\Contracts;
 
 use Tightenco\Collect\Support\Collection;
+use Harbitue\Integration\Collectable;
 
 interface CollectorInterface
 {
-    public function attach(string $data, bool $decode = true);
+    public function attach($response);
 
-    public function detach(): string;
-
-    public function getAttached(): Collection;
-
-    public function get(string $property);
-
-    public function intercept(callable $caller);
-
-    public static function make(string $data);
+    public function detach();
 }
