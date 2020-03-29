@@ -4,13 +4,12 @@ namespace Harbitue\Integration;
 
 use Harbitue\Contracts\CollectorInterface;
 use Harbitue\Contracts\ResponseInterface;
-use Harbitue\Integration\Collectable;
+use Psr\Http\Message\ResponseInterface as GuzzleResponseInterface;
 
 class Response implements ResponseInterface
 {
-    private $response;
-    private $collectable;
-    private CollectorInterface $wrapped;
+    private GuzzleResponseInterface $response;
+    private Collectable $collectable;
 
     public function __construct($response)
     {
@@ -19,44 +18,51 @@ class Response implements ResponseInterface
         $this->collectable = new Collectable(
             $this->response->getBody()->getContents(),
             $this->response->getStatusCode(),
-            [],
+            $this->response->getHeaders(),
         );
 
     }
 
-    public function wrap($response)
+    public function wrap($response): ResponseInterface
     {
         $this->response = $response;
+
+        return $this;
     }
 
-    public function collect()
+    public function collect(): CollectorInterface
     {
         return new Collector(
             json_decode($this->collectable->getContent(), true)
         );
     }
 
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
-        return $this->response->getBody()->getStatusCode();
+        return $this->collectable->getStatusCode();
     }
 
-    public function getWrapped()
+    public function getHeaders(): array
     {
-        return $this->wrapped;
+        return $this->collectable->getHeaders();
     }
 
-    public function unwrap()
+    public function getWrapped(): GuzzleResponseInterface
     {
         return $this->response;
     }
 
-    public static function make($response)
+    private function unwrap(): string
+    {
+        return $this->collectable->toJson();
+    }
+
+    public static function make($response): ResponseInterface
     {
         return new static($response);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->unwrap();
     }

@@ -6,11 +6,11 @@ class Collectable
 {
     private array $headers;
 
-    private $content;
+    private ?string $content;
 
     private int $statusCode;
 
-    public function __construct($content, int $statusCode, array $headers)
+    public function __construct(?string $content, int $statusCode, array $headers)
     {
         $this->setHeaders($headers)
             ->setContent($content)
@@ -41,5 +41,25 @@ class Collectable
     public function getContent()
     {
         return $this->content;
+    }
+
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    public function toJson()
+    {
+        return json_encode(get_object_vars($this));
+    }
+
+    public function __toString()
+    {
+        return $this->toJson();
     }
 }

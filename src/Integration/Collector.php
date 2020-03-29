@@ -7,9 +7,9 @@ use Harbitue\Contracts\CollectorInterface;
 
 class Collector extends Collection implements CollectorInterface 
 {
-    private $response;
+    private array $response;
 
-    public function __construct($response = [])
+    public function __construct(array $response = [])
     {
         $this->attach($response);
 
