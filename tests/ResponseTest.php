@@ -13,12 +13,17 @@ class ResponseTest extends TestCase
 {
     private Response $response;
     private GuzzleResponse $guzzleResponse;
+    private array $body;
+    private array $headers;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->guzzleResponse = new GuzzleResponse(200, ['X-Foo' => 'Bar'], '{"data": "Hello, World"}');
+        $this->headers = ['X-Foo' => 'Bar'];
+        $this->body = ['data' => 'Hello, World'];
+
+        $this->guzzleResponse = new GuzzleResponse(200, $this->headers, json_encode($this->body));
         $this->response = new Response($this->guzzleResponse);
     }
 
@@ -46,5 +51,20 @@ class ResponseTest extends TestCase
     public function testGetWrapped()
     {
         $this->assertEquals($this->guzzleResponse, $this->response->getWrapped());
+    }
+
+    public function testJson()
+    {
+        $this->assertTrue(is_string($this->response->json()));
+        $this->assertEquals(json_encode($this->body), $this->response->json());
+    }
+
+    public function testArray()
+    {
+        $this->assertTrue(is_array($this->response->array()));
+        $this->assertEquals(
+            $this->body,
+            $this->response->array()
+        );
     }
 }
