@@ -32,9 +32,17 @@ class Response implements ResponseInterface
 
     public function collect(): CollectorInterface
     {
-        return new Collector(
-            json_decode($this->collectable->getContent(), true)
-        );
+        return new Collector($this->array());
+    }
+
+    public function array(): array
+    {
+        return json_decode($this->json(), true);
+    }
+
+    public function json(): string
+    {
+        return $this->collectable->getContent();
     }
 
     public function getStatusCode(): int
