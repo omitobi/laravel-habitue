@@ -23,7 +23,7 @@ class ResponseTest extends TestCase
         $this->headers = ['X-Foo' => 'Bar'];
         $this->body = ['data' => 'Hello, World'];
 
-        $this->guzzleResponse = new GuzzleResponse(200, ['X-Foo' => 'Bar'], json_encode($this->body));
+        $this->guzzleResponse = new GuzzleResponse(200, $this->headers, json_encode($this->body));
         $this->response = new Response($this->guzzleResponse);
     }
 
