@@ -4,39 +4,65 @@ namespace Harbitue\Integration;
 
 use Harbitue\Contracts\CollectorInterface;
 use Harbitue\Contracts\ResponseInterface;
+use Psr\Http\Message\ResponseInterface as GuzzleResponseInterface;
 
 class Response implements ResponseInterface
 {
-    private string $response;
-    private CollectorInterface $wrapped;
+    private GuzzleResponseInterface $response;
+    private Collectable $collectable;
 
-    public function __construct(string $response)
+    public function __construct($response)
     {
         $this->wrap($response);
+
+        $this->collectable = new Collectable(
+            $this->response->getBody()->getContents(),
+            $this->response->getStatusCode(),
+            $this->response->getHeaders(),
+        );
+
     }
 
-    public function wrap(string $response)
+    public function wrap($response): ResponseInterface
     {
         $this->response = $response;
-        $this->wrapped = Collector::make($response);
+
+        return $this;
     }
 
-    public function getWrapped(): CollectorInterface
+    public function collect(): CollectorInterface
     {
-        return $this->wrapped;
+        return new Collector(
+            json_decode($this->collectable->getContent(), true)
+        );
     }
 
-    public function unwrap(): string
+    public function getStatusCode(): int
+    {
+        return $this->collectable->getStatusCode();
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->collectable->getHeaders();
+    }
+
+    public function getWrapped(): GuzzleResponseInterface
     {
         return $this->response;
     }
 
-    public static function make(string $response)
+    private function unwrap(): string
+    {
+        return $this->collectable->toJson();
+    }
+
+    public static function make($response): ResponseInterface
     {
         return new static($response);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->unwrap();
     }

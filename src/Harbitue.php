@@ -42,9 +42,9 @@ class Harbitue implements HarbitueInterface
         $this->response = Response::make($this->client->get($url, [
             'headers' => $this->headers,
             'query' => $data ?: $this->body
-        ])->getBody()->getContents());
+        ]));
 
-        return $this->response->getWrapped();
+        return $this->response;
     }
 
     public function post(string $url, array $data = [])
@@ -53,9 +53,9 @@ class Harbitue implements HarbitueInterface
             $this->client->get($url, [
                 'headers' => $this->headers,
                 'json' => $data ?: $this->body
-            ])->getBody()->getContents()
+            ])
         );
 
-        return $this->response->getWrapped();
+        return $this->response;
     }
 }

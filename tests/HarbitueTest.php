@@ -1,15 +1,12 @@
 <?php
 namespace Harbitue\Tests;
 
-use GuzzleHttp\Client;
 use Harbitue\Harbitue;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
+use Harbitue\Tests\Helpers\GuzzleMocker;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Handler\MockHandler;
 use Harbitue\Integration\Collector;
-use GuzzleHttp\Exception\RequestException;
+use Harbitue\Integration\Response;
+use Tightenco\Collect\Support\Collection;
 
 class HarbitueTest extends TestCase
 {
@@ -19,37 +16,26 @@ class HarbitueTest extends TestCase
     {
         parent::setUp();
 
-        $this->harbitue = new Harbitue($this->prepareGuzzleMock());
+        $this->harbitue = new Harbitue(GuzzleMocker::prepareGuzzleMock());
     }
 
     public function testPostSuccess()
     {
         $response = $this->harbitue->post('ninja', ['data' => 'aaa']);
 
-        $this->assertInstanceOf(Collector::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
 
-        $this->assertEquals('Hello, World', $response->get('data'));
+        $this->assertEquals('Hello, World', $response->collect()->get('data'));
     }
 
     public function testGetSuccess()
     {
         $response = $this->harbitue->get('ninja', ['data' => 'aaa']);
 
-        $this->assertInstanceOf(Collector::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertInstanceOf(Collector::class, $response->collect());
+        $this->assertInstanceOf(Collection::class, $response->collect());
 
-        $this->assertEquals('Hello, World', $response->get('data'));
-    }
-
-    public function prepareGuzzleMock()
-    {
-        $mock = new MockHandler([
-            new Response(200, ['X-Foo' => 'Bar'], '{"data": "Hello, World"}'),
-            new Response(202, ['Content-Length' => 0]),
-            new RequestException('Error Communicating with Server', new Request('GET', 'test')),
-            new RequestException('Error Communicating with Server', new Request('POST', 'test')),
-        ]);
-
-        $handlerStack = HandlerStack::create($mock);
-        return new Client(['handler' => $handlerStack]);
+        $this->assertEquals('Hello, World', $response->collect()->get('data'));
     }
 }

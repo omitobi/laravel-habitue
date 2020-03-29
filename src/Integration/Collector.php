@@ -5,46 +5,24 @@ namespace Harbitue\Integration;
 use Tightenco\Collect\Support\Collection;
 use Harbitue\Contracts\CollectorInterface;
 
-class Collector implements CollectorInterface
+class Collector extends Collection implements CollectorInterface 
 {
-    private Collection $data;
+    private array $response;
 
-    public function __construct(string $data)
+    public function __construct(array $response = [])
     {
-        $this->attach($data);
+        $this->attach($response);
+
+        parent::__construct($response);
     }
 
-    public function attach(string $data, bool $decode = true)
+    public function attach($response)
     {
-        $this->data = Collection::make(
-            $decode
-                ? json_decode($data, true)
-                : $data
-        );
+        $this->response = $response;
     }
 
-    public function detach(): string
+    public function detach()
     {
-        return $this->data->toJson();
-    }
-
-    public function get(string $property)
-    {
-        return $this->data->get($property);
-    }
-
-    public function getAttached(): Collection
-    {
-        return $this->data;
-    }
-
-    public function intercept(callable $caller)
-    {
-        return $caller($this->data);
-    }
-
-    public static function make(string $data)
-    {
-        return new static($data);
+        return $this->response;
     }
 }
