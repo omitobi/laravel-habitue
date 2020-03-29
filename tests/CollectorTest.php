@@ -16,6 +16,7 @@ class CollectorTest extends TestCase
         $this->collector = new Collector([
            'name' => 'John Doe',
            'age' => 11,
+           'height' => 57,
             'addresses' => [
                 'postal' => '11111',
                 'city' => 'Tartu',
