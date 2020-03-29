@@ -17,8 +17,11 @@ class CollectorTest extends TestCase
            'name' => 'John Doe',
            'age' => 11,
            'height' => 57,
-            'addresses' => [
-                'postal' => '11111',
+            'address' => [
+                'postal' => [
+                    'code' => '11111',
+                    'region' => 'lc'
+                ],
                 'city' => 'Tartu',
             ]
         ]);
@@ -27,12 +30,27 @@ class CollectorTest extends TestCase
     public function testMagicGetter()
     {
         $name = $this->collector->getName();
-        $address = $this->collector->getAddresses();
+        $address = $this->collector->getAddress();
         $age = $this->collector->get('age');
 
         $this->assertInstanceOf(Collector::class, $address);
         $this->assertTrue(is_string($name));
         $this->assertEquals('John Doe', $name);
         $this->assertEquals(11, $age);
+    }
+
+    public function testDeeperMagicGetter()
+    {
+        $address = $this->collector
+            ->getAddress();
+
+        $city = $address->getCity();
+        $postalCode = $address->getPostal()
+            ->getCode();
+
+        $this->assertTrue(is_string($city));
+        $this->assertEquals('Tartu', $city);
+        $this->assertTrue(is_string($postalCode));
+        $this->assertEquals('11111', $postalCode);
     }
 }
