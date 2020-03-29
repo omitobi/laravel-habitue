@@ -2,11 +2,14 @@
 
 namespace Harbitue\Integration;
 
+use Harbitue\Traits\Getter;
 use Tightenco\Collect\Support\Collection;
 use Harbitue\Contracts\CollectorInterface;
 
-class Collector extends Collection implements CollectorInterface 
+class Collector extends Collection implements CollectorInterface
 {
+    use Getter;
+
     private array $response;
 
     public function __construct(array $response = [])
