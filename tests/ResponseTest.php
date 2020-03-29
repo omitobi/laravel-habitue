@@ -24,7 +24,7 @@ class ResponseTest extends TestCase
 
     public function testMake()
     {
-        $this->assertInstanceOf(ResponseInterface::class, $this->response);
+        $this->assertInstanceOf(ResponseInterface::class, Response::make($this->guzzleResponse));
     }
 
     public function testCollect()
