@@ -1,6 +1,6 @@
 <?php
 
-namespace Harbitue\Tests\Helpers;
+namespace Habitue\Tests\Helpers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;

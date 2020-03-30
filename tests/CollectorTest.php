@@ -1,8 +1,8 @@
 <?php
 
-namespace Harbitue\Tests;
+namespace Habitue\Tests;
 
-use Harbitue\Integration\Collector;
+use Habitue\Integration\Collector;
 use PHPUnit\Framework\TestCase;
 
 class CollectorTest extends TestCase

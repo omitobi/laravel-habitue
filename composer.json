@@ -30,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Harbitue\\": "src"
+            "Habitue\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Harbitue\\Tests\\": "tests/"
+            "Habitue\\Tests\\": "tests/"
         }
     }
 }

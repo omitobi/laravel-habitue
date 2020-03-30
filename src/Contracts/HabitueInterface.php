@@ -1,8 +1,8 @@
 <?php
 
-namespace Harbitue\Contracts;
+namespace Habitue\Contracts;
 
-interface HarbitueInterface
+interface HabitueInterface
 {
     public function setHeader(array $data);
 
@@ -12,5 +12,5 @@ interface HarbitueInterface
 
     public function post(string $url, array $data = []);
 
-    public static function make($client = null): HarbitueInterface;
+    public static function make($client = null): HabitueInterface;
 }

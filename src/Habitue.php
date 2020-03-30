@@ -1,13 +1,13 @@
 <?php
 
-namespace Harbitue;
+namespace Habitue;
 
 use GuzzleHttp\Client;
-use Harbitue\Contracts\HarbitueInterface;
-use Harbitue\Contracts\ResponseInterface;
-use Harbitue\Integration\Response;
+use Habitue\Contracts\HabitueInterface;
+use Habitue\Contracts\ResponseInterface;
+use Habitue\Integration\Response;
 
-class Habitue implements HarbitueInterface
+class Habitue implements HabitueInterface
 {
     /**
      * @var Client
@@ -63,7 +63,7 @@ class Habitue implements HarbitueInterface
         return $this->response;
     }
 
-    public static function make($client = null): HarbitueInterface
+    public static function make($client = null): HabitueInterface
     {
         if ($client) {
             return new self($client);

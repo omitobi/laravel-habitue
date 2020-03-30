@@ -1,6 +1,6 @@
 <?php
 
-namespace Harbitue\Contracts;
+namespace Habitue\Contracts;
 
 interface ResponseInterface
 {

@@ -1,35 +1,35 @@
 <?php
-namespace Harbitue\Tests;
+namespace Habitue\Tests;
 
-use Harbitue\Habitue;
+use Habitue\Habitue;
 use PHPUnit\Framework\TestCase;
-use Harbitue\Integration\Response;
-use Harbitue\Integration\Collector;
-use Harbitue\Tests\Helpers\GuzzleMocker;
-use Harbitue\Contracts\HarbitueInterface;
+use Habitue\Integration\Response;
+use Habitue\Integration\Collector;
+use Habitue\Tests\Helpers\GuzzleMocker;
+use Habitue\Contracts\HabitueInterface;
 use Tightenco\Collect\Support\Collection;
 
 class HabitueTest extends TestCase
 {
-    private Habitue $harbitue;
+    private Habitue $habitue;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->harbitue = new Habitue(GuzzleMocker::prepareGuzzleMock());
+        $this->habitue = new Habitue(GuzzleMocker::prepareGuzzleMock());
     }
 
     public function testMake()
     {
         $habitue = Habitue::make();
 
-        $this->assertInstanceOf(HarbitueInterface::class, $habitue);
+        $this->assertInstanceOf(HabitueInterface::class, $habitue);
     }
 
     public function testPostSuccess()
     {
-        $response = $this->harbitue->post('ninja', ['data' => 'aaa']);
+        $response = $this->habitue->post('ninja', ['data' => 'aaa']);
 
         $this->assertInstanceOf(Response::class, $response);
 
@@ -38,7 +38,7 @@ class HabitueTest extends TestCase
 
     public function testGetSuccess()
     {
-        $response = $this->harbitue->get('ninja', ['data' => 'aaa']);
+        $response = $this->habitue->get('ninja', ['data' => 'aaa']);
 
         $this->assertInstanceOf(Response::class, $response);
         $this->assertInstanceOf(Collector::class, $response->collect());

@@ -1,10 +1,10 @@
 <?php
 
-namespace Harbitue\Integration;
+namespace Habitue\Integration;
 
-use Harbitue\Traits\Getter;
+use Habitue\Traits\Getter;
 use Tightenco\Collect\Support\Collection;
-use Harbitue\Contracts\CollectorInterface;
+use Habitue\Contracts\CollectorInterface;
 
 class Collector extends Collection implements CollectorInterface
 {
