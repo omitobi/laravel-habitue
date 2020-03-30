@@ -58,4 +58,17 @@ class Harbitue implements HarbitueInterface
 
         return $this->response;
     }
+
+    public static function make($client = null): HarbitueInterface
+    {
+        if ($client) {
+            return new self($client);
+        }
+
+        if (function_exists('app')) {
+            return new self(app(Client::class));
+        }
+
+        return new self(new Client());
+    }
 }

@@ -11,4 +11,6 @@ interface HarbitueInterface
     public function get(string $url, array $data = []);
 
     public function post(string $url, array $data = []);
+
+    public static function make($client = null): HarbitueInterface;
 }

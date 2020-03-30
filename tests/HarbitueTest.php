@@ -2,10 +2,11 @@
 namespace Harbitue\Tests;
 
 use Harbitue\Harbitue;
-use Harbitue\Tests\Helpers\GuzzleMocker;
 use PHPUnit\Framework\TestCase;
-use Harbitue\Integration\Collector;
 use Harbitue\Integration\Response;
+use Harbitue\Integration\Collector;
+use Harbitue\Tests\Helpers\GuzzleMocker;
+use Harbitue\Contracts\HarbitueInterface;
 use Tightenco\Collect\Support\Collection;
 
 class HarbitueTest extends TestCase
@@ -17,6 +18,13 @@ class HarbitueTest extends TestCase
         parent::setUp();
 
         $this->harbitue = new Harbitue(GuzzleMocker::prepareGuzzleMock());
+    }
+
+    public function testMake()
+    {
+        $habitue = Harbitue::make();
+
+        $this->assertInstanceOf(HarbitueInterface::class, $habitue);
     }
 
     public function testPostSuccess()
