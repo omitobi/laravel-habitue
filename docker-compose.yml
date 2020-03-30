@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  bundle:
-    habitue:
+  habitue:
+    build:
       context: .
       dockerfile: Dockerfile
     container_name: habitue
