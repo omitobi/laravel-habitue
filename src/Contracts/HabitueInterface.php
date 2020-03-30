@@ -4,9 +4,9 @@ namespace Habitue\Contracts;
 
 interface HabitueInterface
 {
-    public function setHeader(array $data);
+    public function setHeaders(array $data): HabitueInterface;
 
-    public function setBody(array $body);
+    public function setBody(array $body): HabitueInterface;
 
     public function get(string $url, array $data = []);
 

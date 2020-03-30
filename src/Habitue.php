@@ -27,21 +27,21 @@ class Habitue implements HabitueInterface
 
     private ResponseInterface $response;
 
-    public function setHeader(array $headers, bool $replace = false)
+    public function setHeaders(array $headers, bool $replace = false): HabitueInterface
     {
         $this->headers = $replace ? $headers : ($this->headers + $headers);
 
         return $this;
     }
 
-    public function setBody(array $body, bool $replace = false)
+    public function setBody(array $body, bool $replace = false): HabitueInterface
     {
         $this->headers = $replace ? $body : ($this->body + $body);
 
         return $this;
     }
 
-    public function get(string $url, array $data = [])
+    public function get(string $url, array $data = []): ResponseInterface
     {
         $this->response = Response::make($this->client->get($url, [
             'headers' => $this->headers,
@@ -51,7 +51,7 @@ class Habitue implements HabitueInterface
         return $this->response;
     }
 
-    public function post(string $url, array $data = [])
+    public function post(string $url, array $data = []): ResponseInterface
     {
         $this->response = Response::make(
             $this->client->get($url, [
