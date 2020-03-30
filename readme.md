@@ -5,7 +5,7 @@
 [![Monthly Downloads](https://poser.pugx.org/omitobisam/laravel-habitue/d/monthly)](https://packagist.org/packages/omitobisam/laravel-habitue)
 
 # Habitue
-An Http client with the power of collections for your jsonable requests
+An Http Client with the power of collections for your jsonable requests
 
 ## Installation
 
@@ -32,18 +32,7 @@ You can use within a class...:
 ```php
 use Habitue\Habitue;
 
-class RequestService {
-    
-    private Habitue $habitue;
-
-    public function __construct(Habitue $habitue)
-    {       
-        $this->habitue = $habitue;
-    }
-}
-
 // or simply
-
 Habitue::make() // An instance of Habitue
 
 ->setBody(['page' => 2]) //set body
@@ -53,13 +42,32 @@ Habitue::make() // An instance of Habitue
 ->get('https//abc.example/ninjas'); // or ->post() 
 ```
 
+Or you can wire it up in your class:
+
+```php
+use Habitue\Habitue;
+
+class RequestService {
+    
+    private Habitue $habitue;
+
+    public function __construct(Habitue $habitue)
+    {       
+        $this->habitue = $habitue;
+    }
+}
+```
+
 Then call the methods to make the http request:
 
 ```php
+use Habitue\Habitue;
+
 /**
 * @var $response \Habitue\Integration\Response
 */
-$response = Habitue::get('https://ninja.example/users');
+$response = Habitue::make()
+    ->get('https://ninja.example/users');
 
 $response->json(); //returns json string of the response body
 
@@ -93,7 +101,13 @@ Say your response is the following:
 You can get the value `code`  with the following
 
 ```php
-$collected = $habitue->get('https://ninja.example/users') // Returns Habitue/Integration/Collector
+use Habitue\Habitue;
+
+/**
+* @var $collected \Habitue\Integration\Collector
+*/
+$collected = Habitue::make()
+    ->get('https://ninja.example/users')
     ->collect();
 
 $collected->get('name'); //John Doe
@@ -108,4 +122,10 @@ $collected->getAddress() // Collection with {"postal": {"code":"11111","region":
 ```
 
 ## Contributions
+
+- Create an issue
+- Make a PR
+- It gets it approved
+- It gets gets merged
+
 
