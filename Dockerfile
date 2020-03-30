@@ -14,9 +14,6 @@ RUN apk update && apk add --no-cache \
     php7 \
     php7-fpm \
     php7-common \
-    php7-pdo \
-    php7-pdo_mysql \
-    php7-mysqli \
     php7-mcrypt \
     php7-mbstring \
     php7-xml \
@@ -37,15 +34,15 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Remove Cache
 RUN rm -rf /var/cache/apk/*
 
-# Add UID '1000' to www-data
-RUN usermod -u 1000 www-data
-
-# Copy existing application directory permissions
-COPY --chown=www-data:www-data . /var/www/html
-
-# Change current user to www
-USER www-data
-
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
-CMD ["php-fpm"]
+## Add UID '1000' to www-data
+#RUN usermod -u 1000 www-data
+#
+## Copy existing application directory permissions
+#COPY --chown=www-data:www-data . /var/www/html
+#
+## Change current user to www
+#USER www-data
+#
+## Expose port 9000 and start php-fpm server
+#EXPOSE 9000
+#CMD ["php-fpm"]

@@ -1,27 +1,23 @@
 version: "3"
 
 services:
-  app:
-    build:
+  bundle:
+    habitue:
       context: .
       dockerfile: Dockerfile
-    container_name: app
+    container_name: habitue
     restart: unless-stopped
     tty: true
     working_dir: /var/www/html
     environment:
       SERVICE_TAGS: dev
-      SERVICE_NAME: app
+      SERVICE_NAME: habitue
     volumes:
       - ./:/var/www/html
     networks:
-      - laravel
+      - laravel-habitue
 
 #Docker Networks
 networks:
-  laravel:
+  laravel-habitue:
     driver: bridge
-#Volumes
-volumes:
-  mysqldata:
-    driver: local
