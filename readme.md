@@ -4,7 +4,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/omitobisam/carbonate/v/unstable)](//packagist.org/packages/omitobisam/laravel-habitue)
 [![Monthly Downloads](https://poser.pugx.org/omitobisam/laravel-habitue/d/monthly)](https://packagist.org/packages/omitobisam/laravel-habitue)
 
-# Harbitue
+# Habitue
 An Http client with the power of collections for your jsonable requests
 
 ## Installation
@@ -30,23 +30,33 @@ After this run `composer update`
 You can use within a class...:
 
 ```php
-use Harbitue\Harbitue;
+use Harbitue\Habitue;
 
 class RequestService {
     
-    private Harbitue $harbitue;
+    private Habitue $habitue;
 
-    public function __construct(Harbitue $harbitue)
+    public function __construct(Habitue $habitue)
     {       
-        $this->harbitue = $harbitue;
+        $this->habitue = $habitue;
     }
 }
+
+// or simply
+
+Habitue::make()
+->setBody([])
+->setHeader([])
+->get()
+//or
+//->post()
 ```
 
 Then call the methods to make the http request:
 
 ```php
-$response = $harbitue->get('https://ninja.example/users');
+
+$response = $habitue->get('https://ninja.example/users');
 $response->json();
 $response->array();
 $response->getStatusCode();
@@ -75,7 +85,7 @@ Say your response is the following:
 You can get the value `code`  with the following
 
 ```php
-$collected = $harbitue->get('https://ninja.example/users') // Returns Harbitue/Integration/Collector
+$collected = $harbitue->get('https://ninja.example/users') // Returns Habitue/Integration/Collector
     ->collect();
 
 $collected->get('name'); //John Doe

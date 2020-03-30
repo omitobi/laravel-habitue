@@ -7,7 +7,7 @@ use Harbitue\Contracts\HarbitueInterface;
 use Harbitue\Contracts\ResponseInterface;
 use Harbitue\Integration\Response;
 
-class Harbitue implements HarbitueInterface
+class Habitue implements HarbitueInterface
 {
     /**
      * @var Client
@@ -30,11 +30,15 @@ class Harbitue implements HarbitueInterface
     public function setHeader(array $headers, bool $replace = false)
     {
         $this->headers = $replace ? $headers : ($this->headers + $headers);
+
+        return $this;
     }
 
-    public function setBody(array $body, bool $replace = false): void
+    public function setBody(array $body, bool $replace = false)
     {
         $this->headers = $replace ? $body : ($this->body + $body);
+
+        return $this;
     }
 
     public function get(string $url, array $data = [])

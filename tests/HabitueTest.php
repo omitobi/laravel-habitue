@@ -1,7 +1,7 @@
 <?php
 namespace Harbitue\Tests;
 
-use Harbitue\Harbitue;
+use Harbitue\Habitue;
 use PHPUnit\Framework\TestCase;
 use Harbitue\Integration\Response;
 use Harbitue\Integration\Collector;
@@ -9,20 +9,20 @@ use Harbitue\Tests\Helpers\GuzzleMocker;
 use Harbitue\Contracts\HarbitueInterface;
 use Tightenco\Collect\Support\Collection;
 
-class HarbitueTest extends TestCase
+class HabitueTest extends TestCase
 {
-    private Harbitue $harbitue;
+    private Habitue $harbitue;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->harbitue = new Harbitue(GuzzleMocker::prepareGuzzleMock());
+        $this->harbitue = new Habitue(GuzzleMocker::prepareGuzzleMock());
     }
 
     public function testMake()
     {
-        $habitue = Harbitue::make();
+        $habitue = Habitue::make();
 
         $this->assertInstanceOf(HarbitueInterface::class, $habitue);
     }
