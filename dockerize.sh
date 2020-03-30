@@ -4,4 +4,4 @@ docker-compose build
 
 docker-compose up -d --remove-orphans
 
-docker-compose exec bundle composer install
+docker-compose exec habitue composer install
