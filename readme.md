@@ -1,3 +1,5 @@
+<img src="https://github.com/omitobi/assets/blob/master/laravel-habitue-assets/twitter_header_photo_2.png" height="300" align="center" width="100%">
+
 [![Build Status](https://travis-ci.com/omitobi/laravel-habitue.svg?branch=master)](https://travis-ci.com/omitobi/laravel-habitue)
 [![Latest Stable Version](https://poser.pugx.org/omitobisam/laravel-habitue/version)](https://packagist.org/packages/omitobisam/laravel-habitue)
 [![Total Downloads](https://poser.pugx.org/omitobisam/laravel-habitue/downloads)](https://packagist.org/packages/omitobisam/laravel-habitue)
