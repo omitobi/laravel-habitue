@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.com/omitobi/laravel-habitue.svg?branch=master)](https://travis-ci.com/omitobi/laravel-habitue)
 [![Latest Stable Version](https://poser.pugx.org/omitobisam/laravel-habitue/version)](https://packagist.org/packages/omitobisam/laravel-habitue)
 [![Total Downloads](https://poser.pugx.org/omitobisam/laravel-habitue/downloads)](https://packagist.org/packages/omitobisam/laravel-habitue)
-[![Latest Unstable Version](https://poser.pugx.org/omitobisam/habitue/v/unstable)](//packagist.org/packages/omitobisam/laravel-habitue)
+[![Latest Unstable Version](https://poser.pugx.org/omitobisam/laravel-habitue/v/unstable)](https://packagist.org/packages/omitobisam/laravel-habitue)
 [![Monthly Downloads](https://poser.pugx.org/omitobisam/laravel-habitue/d/monthly)](https://packagist.org/packages/omitobisam/laravel-habitue)
 
 # Habitue
-An Http Client with the power of collections for your jsonable requests
+An Http Client with the power of collections for your jsonable requests. Usable on Laravel and non-laravel php project.
 
 ## Installation
 
@@ -27,7 +27,7 @@ After this run `composer update`
 
 ## Usage
 
-You can use within a class...:
+You can call it simply statically:
 
 ```php
 use Habitue\Habitue;
@@ -80,7 +80,7 @@ $response->getHeaders(); // returns the headers
 $response->collect(); // returns the response body in an instance of Habitue\Collector 
 ```
 
-The `collect` method is a smart Collection that provides all the methods available in Laravel Collection and helps to draw out values deeply nexted into the response.
+The `collect` method is a smart Collection that provides all the methods available in Laravel Collection and helps to draw out values deeply nested into the response.
 Say your response is the following:
 
 ```json
