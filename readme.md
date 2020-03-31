@@ -1,12 +1,16 @@
-<img src="https://github.com/omitobi/assets/blob/master/laravel-habitue-assets/twitter_header_photo_2.png" height="300" align="center" width="100%">
+<p align="center">
+<img src="https://github.com/omitobi/assets/blob/master/laravel-habitue-assets/twitter_header_photo_2.png">
+</p>
 
-[![Build Status](https://travis-ci.com/omitobi/laravel-habitue.svg?branch=master)](https://travis-ci.com/omitobi/laravel-habitue)
-[![Latest Stable Version](https://poser.pugx.org/omitobisam/laravel-habitue/version)](https://packagist.org/packages/omitobisam/laravel-habitue)
-[![Total Downloads](https://poser.pugx.org/omitobisam/laravel-habitue/downloads)](https://packagist.org/packages/omitobisam/laravel-habitue)
-[![Latest Unstable Version](https://poser.pugx.org/omitobisam/laravel-habitue/v/unstable)](https://packagist.org/packages/omitobisam/laravel-habitue)
-[![Monthly Downloads](https://poser.pugx.org/omitobisam/laravel-habitue/d/monthly)](https://packagist.org/packages/omitobisam/laravel-habitue)
+<p align="center">
+<a href="https://travis-ci.com/omitobi/laravel-habitue"> <img src="https://travis-ci.com/omitobi/laravel-habitue.svg?branch=master" alt="Build Status"/></a>
+<a href="https://packagist.org/packages/omitobisam/laravel-habitue"> <img src="https://poser.pugx.org/omitobisam/laravel-habitue/version" alt="Latest Stable Version"/></a>
+<a href="https://packagist.org/packages/omitobisam/laravel-habitue"> <img src="https://poser.pugx.org/omitobisam/laravel-habitue/downloads" alt="Total Downloads"/></a>
+<a href="https://packagist.org/packages/omitobisam/laravel-habitue"> <img src="https://poser.pugx.org/omitobisam/laravel-habitue/v/unstable" alt="Latest Unstable Version"/></a>
+<a href="https://packagist.org/packages/omitobisam/laravel-habitue"> <img src="https://poser.pugx.org/omitobisam/laravel-habitue/d/monthly" alt="Latest Monthly Downloads"/></a>
+</p>
 
-# Habitue
+## About Habitue
 An Http Client with the power of collections for your jsonable requests. Usable on Laravel and non-laravel php project.
 
 ## Installation
