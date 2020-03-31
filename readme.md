@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/omitobi/assets/blob/master/laravel-habitue-assets/twitter_header_photo_1.png">
+<img src="https://github.com/omitobi/assets/blob/master/laravel-habitue-assets/twitter_header_photo_2.png">
 </p>
 
 <p align="center">
