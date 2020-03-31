@@ -10,7 +10,7 @@
 <a href="https://packagist.org/packages/omitobisam/laravel-habitue"> <img src="https://poser.pugx.org/omitobisam/laravel-habitue/d/monthly" alt="Latest Monthly Downloads"/></a>
 </p>
 
-# About Habitue
+## About Habitue
 An Http Client with the power of collections for your jsonable requests. Usable on Laravel and non-laravel php project.
 
 ## Installation
