@@ -36,7 +36,7 @@ class Habitue implements HabitueInterface
 
     public function setBody(array $body, bool $replace = false): HabitueInterface
     {
-        $this->headers = $replace ? $body : ($this->body + $body);
+        $this->body = $replace ? $body : ($this->body + $body);
 
         return $this;
     }
