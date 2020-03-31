@@ -1,6 +1,6 @@
 <?php
 
-namespace Harbitue\Traits;
+namespace Habitue\Traits;
 
 trait Getter
 {

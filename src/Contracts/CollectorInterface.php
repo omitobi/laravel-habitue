@@ -1,9 +1,9 @@
 <?php
 
-namespace Harbitue\Contracts;
+namespace Habitue\Contracts;
 
 use Tightenco\Collect\Support\Collection;
-use Harbitue\Integration\Collectable;
+use Habitue\Integration\Collectable;
 
 interface CollectorInterface
 {

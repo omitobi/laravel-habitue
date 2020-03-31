@@ -1,6 +1,6 @@
 <?php
 
-namespace Harbitue\Integration;
+namespace Habitue\Integration;
 
 class Collectable
 {

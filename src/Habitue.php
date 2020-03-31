@@ -1,13 +1,13 @@
 <?php
 
-namespace Harbitue;
+namespace Habitue;
 
 use GuzzleHttp\Client;
-use Harbitue\Contracts\HarbitueInterface;
-use Harbitue\Contracts\ResponseInterface;
-use Harbitue\Integration\Response;
+use Habitue\Contracts\HabitueInterface;
+use Habitue\Contracts\ResponseInterface;
+use Habitue\Integration\Response;
 
-class Harbitue implements HarbitueInterface
+class Habitue implements HabitueInterface
 {
     /**
      * @var Client
@@ -27,17 +27,21 @@ class Harbitue implements HarbitueInterface
 
     private ResponseInterface $response;
 
-    public function setHeader(array $headers, bool $replace = false)
+    public function setHeaders(array $headers, bool $replace = false): HabitueInterface
     {
         $this->headers = $replace ? $headers : ($this->headers + $headers);
+
+        return $this;
     }
 
-    public function setBody(array $body, bool $replace = false): void
+    public function setBody(array $body, bool $replace = false): HabitueInterface
     {
-        $this->headers = $replace ? $body : ($this->body + $body);
+        $this->body = $replace ? $body : ($this->body + $body);
+
+        return $this;
     }
 
-    public function get(string $url, array $data = [])
+    public function get(string $url, array $data = []): ResponseInterface
     {
         $this->response = Response::make($this->client->get($url, [
             'headers' => $this->headers,
@@ -47,7 +51,7 @@ class Harbitue implements HarbitueInterface
         return $this->response;
     }
 
-    public function post(string $url, array $data = [])
+    public function post(string $url, array $data = []): ResponseInterface
     {
         $this->response = Response::make(
             $this->client->get($url, [
@@ -57,5 +61,18 @@ class Harbitue implements HarbitueInterface
         );
 
         return $this->response;
+    }
+
+    public static function make($client = null): HabitueInterface
+    {
+        if ($client) {
+            return new self($client);
+        }
+
+        if (function_exists('app')) {
+            return new self(app(Client::class));
+        }
+
+        return new self(new Client());
     }
 }

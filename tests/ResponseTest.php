@@ -1,11 +1,11 @@
 <?php
 
-namespace Harbitue\Tests;
+namespace Habitue\Tests;
 
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
-use Harbitue\Contracts\ResponseInterface;
-use Harbitue\Integration\Collector;
-use Harbitue\Integration\Response;
+use Habitue\Contracts\ResponseInterface;
+use Habitue\Integration\Collector;
+use Habitue\Integration\Response;
 use PHPUnit\Framework\TestCase;
 use Tightenco\Collect\Support\Collection;
 

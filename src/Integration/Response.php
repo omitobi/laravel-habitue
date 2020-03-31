@@ -1,9 +1,9 @@
 <?php
 
-namespace Harbitue\Integration;
+namespace Habitue\Integration;
 
-use Harbitue\Contracts\CollectorInterface;
-use Harbitue\Contracts\ResponseInterface;
+use Habitue\Contracts\CollectorInterface;
+use Habitue\Contracts\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as GuzzleResponseInterface;
 
 class Response implements ResponseInterface
