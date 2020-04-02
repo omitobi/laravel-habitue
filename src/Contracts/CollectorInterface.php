@@ -7,7 +7,5 @@ use Habitue\Integration\Collectable;
 
 interface CollectorInterface
 {
-    public function attach($response);
-
     public function detach();
 }

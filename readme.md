@@ -127,6 +127,36 @@ $collected->getAddress() // Collection with {"postal": {"code":"11111","region":
     ->getCode(); //11111
 ```
 
+## API Available
+
+### Habitue class
+
+```php
+\Habitue\Habitue::__construct(Client $client): void
+\Habitue\Habitue::setHeaders(): HabitueInterface
+\Habitue\Habitue::setBody(): HabitueInterface
+\Habitue\Habitue::get(string $url, array $data = []): ResponseInterface
+\Habitue\Habitue::post(string $url, array $data = []): ResponseInterface
+\Habitue\Habitue::patch(string $url, array $data = []): ResponseInterface
+\Habitue\Habitue::put(string $url, array $data = []): ResponseInterface
+\Habitue\Habitue::delete(string $url, array $data = []): ResponseInterface
+\Habitue\Habitue::make($client = null): HabitueInterface
+```
+
+### Response Class
+
+```php
+\Habitue\Integration\Response::__construct(): void
+\Habitue\Integration\Response::collect(): CollectorInterface
+\Habitue\Integration\Response::array(): array
+\Habitue\Integration\Response::json(): string
+\Habitue\Integration\Response::getStatusCode(): int
+\Habitue\Integration\Response::getHeaders(): array
+\Habitue\Integration\Response::getWrapped(): GuzzleResponseInterface
+\Habitue\Integration\Response::make($response): ResponseInterface
+\Habitue\Integration\Response::__toString(): string
+```
+
 ## Contributions
 
 - Create an issue
