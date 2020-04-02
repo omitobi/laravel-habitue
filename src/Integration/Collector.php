@@ -19,7 +19,7 @@ class Collector extends Collection implements CollectorInterface
         parent::__construct($response);
     }
 
-    public function attach($response)
+    private function attach($response)
     {
         $this->response = $response;
     }
