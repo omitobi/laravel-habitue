@@ -21,6 +21,6 @@ class GuzzleMocker
         ]);
 
         $handlerStack = HandlerStack::create($mock);
-        return new Client(['handler' => $handlerStack]);
+        return [$mock, $handlerStack, new Client(['handler' => $handlerStack])];
     }
 }
