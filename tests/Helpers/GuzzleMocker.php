@@ -15,7 +15,7 @@ class GuzzleMocker
     {
         $mock = new MockHandler([
             new GuzzleResponse(200, ['X-Foo' => 'Bar'], '{"data": "Hello, World"}'),
-            new GuzzleResponse(202, ['Content-Length' => 0]),
+            new GuzzleResponse(201, ['Content-Length' => 0], '{"data": "welcome"}'),
             new RequestException('Error Communicating with Server', new Request('GET', 'test')),
             new RequestException('Error Communicating with Server', new Request('POST', 'test')),
         ]);

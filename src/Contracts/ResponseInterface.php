@@ -2,10 +2,10 @@
 
 namespace Habitue\Contracts;
 
-use Closure;
-
 interface ResponseInterface
 {
+    public function collect(): CollectorInterface;
+
     public function wrap($response): ResponseInterface;
 
     public function getWrapped();
@@ -14,7 +14,7 @@ interface ResponseInterface
 
     public function json(): string;
 
-    public function then(Closure $closure): ResponseInterface;
+    public function then(callable $closure): ResponseInterface;
 
     public static function make($response): ResponseInterface;
 }

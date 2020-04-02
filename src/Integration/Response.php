@@ -66,11 +66,9 @@ class Response implements ResponseInterface
         return $this->collectable->toJson();
     }
 
-    public function then(Closure $closure): ResponseInterface
+    public function then(callable $caller): ResponseInterface
     {
-        $closure($this);
-
-        return $this;
+        return $caller($this);
     }
 
     public function __toString(): string

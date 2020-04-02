@@ -72,8 +72,12 @@ class ResponseTest extends TestCase
     {
         $response = $this->response->then(function ($response) {
             $this->assertInstanceOf(ResponseInterface::class, $response);
+
+            return $response;
         })->then(function ($response) {
             $this->assertInstanceOf(ResponseInterface::class, $response);
+
+            return $response;
         });
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
