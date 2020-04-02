@@ -54,6 +54,15 @@ class HabitueTest extends TestCase
         $this->assertEquals('Hello, World', $response->collect()->get('data'));
     }
 
+    public function testPutSuccess()
+    {
+        $response = $this->habitue->put('ninja', ['data' => 'aaa']);
+
+        $this->assertInstanceOf(Response::class, $response);
+
+        $this->assertEquals('Hello, World', $response->collect()->get('data'));
+    }
+
     public function testDeleteSuccess()
     {
         $this->mock->reset();

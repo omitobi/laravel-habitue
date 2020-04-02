@@ -77,6 +77,18 @@ class Habitue implements HabitueInterface
         return $this->response;
     }
 
+    public function put(string $url, array $data = []): ResponseInterface
+    {
+        $this->response = Response::make(
+            $this->client->put($url, [
+                'headers' => $this->headers,
+                'json' => $data ?: $this->body
+            ])
+        );
+
+        return $this->response;
+    }
+
     public function delete(string $url, array $data = []): ResponseInterface
     {
         $this->response = Response::make(

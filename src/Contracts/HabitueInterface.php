@@ -14,6 +14,8 @@ interface HabitueInterface
 
     public function patch(string $url, array $data = []): ResponseInterface;
 
+    public function put(string $url, array $data = []): ResponseInterface;
+
     public function delete(string $url, array $data = []): ResponseInterface;
 
     public static function make($client = null): HabitueInterface;
