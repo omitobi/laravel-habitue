@@ -15,12 +15,10 @@ class GuzzleMocker
     {
         $mock = new MockHandler([
             new GuzzleResponse(200, ['X-Foo' => 'Bar'], '{"data": "Hello, World"}'),
-            new GuzzleResponse(202, ['Content-Length' => 0]),
             new RequestException('Error Communicating with Server', new Request('GET', 'test')),
-            new RequestException('Error Communicating with Server', new Request('POST', 'test')),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
-        return new Client(['handler' => $handlerStack]);
+        return [$mock, $handlerStack, new Client(['handler' => $handlerStack])];
     }
 }
