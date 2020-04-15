@@ -2,30 +2,34 @@
 
 namespace Habitue\Integration;
 
-use Habitue\Traits\Getter;
+use Habitue\Contracts\ClientResponseInterface;
+use Habitue\Traits\MagicGetter;
 use Tightenco\Collect\Support\Collection;
 use Habitue\Contracts\CollectorInterface;
 
 class Collector extends Collection implements CollectorInterface
 {
-    use Getter;
+    use MagicGetter;
 
-    private array $response;
+    private ClientResponseInterface $response;
 
-    public function __construct(array $response = [])
-    {
-        $this->attach($response);
-
-        parent::__construct($response);
-    }
-
-    private function attach($response)
-    {
-        $this->response = $response;
-    }
-
-    public function detach()
+    public function response(): ClientResponseInterface
     {
         return $this->response;
+    }
+
+    public function statusCode(): int
+    {
+        return $this->response->getStatusCode();
+    }
+
+    public function headers(): array
+    {
+        return $this->response->getHeaders();
+    }
+
+    public function setResponse(ClientResponseInterface $clientResponse)
+    {
+        $this->response = $clientResponse;
     }
 }

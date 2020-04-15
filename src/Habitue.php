@@ -3,114 +3,89 @@
 namespace Habitue;
 
 use GuzzleHttp\Client;
+use Habitue\Clients\GuzzleClient;
+use Habitue\Contracts\ClientInterface;
 use Habitue\Contracts\HabitueInterface;
 use Habitue\Contracts\ResponseInterface;
+use Habitue\Integration\AbstractHabitue;
+use Habitue\Integration\ClientResponse;
+use Habitue\Integration\Collector;
+use Habitue\Integration\Converter;
+use Habitue\Integration\HabitueResponse;
 use Habitue\Integration\Response;
 
-class Habitue implements HabitueInterface
+class Habitue extends AbstractHabitue implements HabitueInterface
 {
-    /**
-     * @var Client
-     */
-    private Client $client;
+    private ClientResponse $response;
 
-    public function __construct(Client $client)
+    private string $url;
+
+    private array $data;
+
+    public function __construct(string $url, array $data = [])
     {
-        $this->client = $client;
+        $this->url = $url;
+        $this->data = $data;
+
+        $this->initializeClient();
     }
 
-    private array $headers = [
-        'accept' => 'application/json'
-    ];
-
-    private array $body = [];
-
-    private ResponseInterface $response;
-
-    public function setHeaders(array $headers, bool $replace = false): HabitueInterface
+    public function setHeaders(array $headers, bool $overwrite = false): HabitueInterface
     {
-        $this->headers = $replace ? $headers : ($this->headers + $headers);
+        $this->client->setHeaders($headers, $overwrite);
 
         return $this;
     }
 
-    public function setBody(array $body, bool $replace = false): HabitueInterface
+    public function setBody(array $body, bool $overwrite = false): HabitueInterface
     {
-        $this->body = $replace ? $body : ($this->body + $body);
+        $this->client->setBody($body, $overwrite);
 
         return $this;
     }
 
-    public function get(string $url, array $data = []): ResponseInterface
+    public function get($key = null)
     {
-        $this->response = Response::make(
-            $this->client->get($url, [
-                'headers' => $this->headers,
-                'query' => $data ?: $this->body
-            ])
-        );
+        $this->response = $this->client->get($this->url, $this->data);
 
+        return HabitueResponse::make($this->response)->respond();
+    }
+
+    public function post($key = null)
+    {
+        $this->response = $this->client->post($this->url, $this->data);
+
+        return HabitueResponse::make($this->response)->respond();
+    }
+
+    public function patch($key = null): Collector
+    {
+        $this->response = $this->client->patch($this->url, $this->data);
+
+        return HabitueResponse::make($this->response)->respond();
+    }
+
+    public function put($key = null): Collector
+    {
+        $this->response = $this->client->put($this->url, $this->data);
+
+        return HabitueResponse::make($this->response)->respond();
+    }
+
+    public function delete($key = null): Collector
+    {
+        $this->response = $this->client->delete($this->url, $this->data);
+
+        return HabitueResponse::make($this->response)->respond();
+    }
+
+    public function getResponse(): ClientResponse
+    {
         return $this->response;
     }
 
-    public function post(string $url, array $data = []): ResponseInterface
+    public static function make(string $url, array $data = []): HabitueInterface
     {
-        $this->response = Response::make(
-            $this->client->get($url, [
-                'headers' => $this->headers,
-                'json' => $data ?: $this->body
-            ])
-        );
-
-        return $this->response;
-    }
-
-    public function patch(string $url, array $data = []): ResponseInterface
-    {
-        $this->response = Response::make(
-            $this->client->patch($url, [
-                'headers' => $this->headers,
-                'json' => $data ?: $this->body
-            ])
-        );
-
-        return $this->response;
-    }
-
-    public function put(string $url, array $data = []): ResponseInterface
-    {
-        $this->response = Response::make(
-            $this->client->put($url, [
-                'headers' => $this->headers,
-                'json' => $data ?: $this->body
-            ])
-        );
-
-        return $this->response;
-    }
-
-    public function delete(string $url, array $data = []): ResponseInterface
-    {
-        $this->response = Response::make(
-            $this->client->delete($url, [
-                'headers' => $this->headers,
-                'json' => $data ?: $this->body
-            ])
-        );
-
-        return $this->response;
-    }
-
-    public static function make($client = null): HabitueInterface
-    {
-        if ($client) {
-            return new self($client);
-        }
-
-        if (function_exists('app')) {
-            return new self(app(Client::class));
-        }
-
-        return new self(new Client());
+        return new static($url, $data);
     }
 }
