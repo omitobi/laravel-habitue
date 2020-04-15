@@ -31,5 +31,7 @@ class Collector extends Collection implements CollectorInterface
     public function setResponse(ClientResponseInterface $clientResponse)
     {
         $this->response = $clientResponse;
+
+        return $this;
     }
 }

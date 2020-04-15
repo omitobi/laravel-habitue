@@ -35,7 +35,8 @@ class HabitueResponse
                 break;
             case 'collection':
             default:
-                $response = $converter->toCollection();
+                $response = $converter->toCollection()
+                    ->setResponse($this->clientResponse);
                 break;
         }
 
