@@ -30,6 +30,11 @@ class HabitueTest extends TestCase
         GuzzleClient::mock($this->client);
     }
 
+    public function testHelper()
+    {
+        $this->assertInstanceOf(HabitueInterface::class, habitue('abc', []));
+    }
+
     public function testMake()
     {
         $habitue = Habitue::make('http://ninja.example');
@@ -42,7 +47,7 @@ class HabitueTest extends TestCase
         /**
          * @var Collector $response
          */
-        $response = Habitue::make('http://ninja.example')->post();
+        $response = habitue('http://ninja.example')->post();
 
         //todo.test config
 
@@ -53,7 +58,7 @@ class HabitueTest extends TestCase
 
     public function testPatchSuccess()
     {
-        $response = Habitue::make('http://ninja.example')->patch();
+        $response = habitue('http://ninja.example')->patch();
 
         $this->assertInstanceOf(Collector::class, $response);
 
@@ -62,7 +67,7 @@ class HabitueTest extends TestCase
 
     public function testPutSuccess()
     {
-        $response = Habitue::make('ninja', ['data' => 'aaa'])->put();
+        $response = habitue('ninja', ['data' => 'aaa'])->put();
 
         $this->assertInstanceOf(Collector::class, $response);
 
@@ -75,7 +80,7 @@ class HabitueTest extends TestCase
 
         $this->mock->append(new GuzzleResponse(204, [], "[]"));
 
-        $response = Habitue::make('ninja')->delete();
+        $response = habitue('ninja')->delete();
 
         $this->assertInstanceOf(Collector::class, $response);
 
@@ -84,7 +89,7 @@ class HabitueTest extends TestCase
 
     public function testGetSuccess()
     {
-        $response = $response = Habitue::make('/ninja')->get();
+        $response = $response = habitue('/ninja')->get();
 
         $this->assertInstanceOf(Collector::class, $response);
 
