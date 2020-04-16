@@ -48,33 +48,44 @@ class Habitue extends AbstractHabitue implements HabitueInterface
     {
         $this->response = $this->client->get($this->url, $this->data);
 
-        return HabitueResponse::make($this->response)->respond();
+        return $this->respond($key);
     }
 
     public function post($key = null)
     {
         $this->response = $this->client->post($this->url, $this->data);
 
-        return HabitueResponse::make($this->response)->respond();
+        return $this->respond($key);
     }
 
     public function patch($key = null): Collector
     {
         $this->response = $this->client->patch($this->url, $this->data);
 
-        return HabitueResponse::make($this->response)->respond();
+        return $this->respond($key);
     }
 
     public function put($key = null): Collector
     {
         $this->response = $this->client->put($this->url, $this->data);
 
-        return HabitueResponse::make($this->response)->respond();
+        return $this->respond($key);
     }
 
     public function delete($key = null): Collector
     {
         $this->response = $this->client->delete($this->url, $this->data);
+
+        return $this->respond($key);
+    }
+
+    private function respond($key = null)
+    {
+        if ($key) {
+            return HabitueResponse::make($this->response)
+                ->respond()
+                ->get($key);
+        }
 
         return HabitueResponse::make($this->response)->respond();
     }

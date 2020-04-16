@@ -99,4 +99,11 @@ class HabitueTest extends TestCase
 
         $this->assertEquals('Hello, World', $response->get('data'));
     }
+
+    public function testGetDataFromResponseDirectly()
+    {
+        $response = $response = habitue('/ninja')->get('data');
+
+        $this->assertEquals('Hello, World', $response);
+    }
 }
