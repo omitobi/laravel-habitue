@@ -2,7 +2,7 @@
 
 namespace Habitue\Traits;
 
-trait Getter
+trait MagicGetter
 {
     // Trait Getter
 

@@ -2,21 +2,23 @@
 
 namespace Habitue\Contracts;
 
+use Habitue\Integration\Collector;
+
 interface HabitueInterface
 {
-    public function setHeaders(array $data): HabitueInterface;
+    public static function make(string $url, array $body = []): HabitueInterface;
 
-    public function setBody(array $body): HabitueInterface;
+    public function setHeaders(array $data, bool $overwrite = false): HabitueInterface;
 
-    public function get(string $url, array $data = []): ResponseInterface;
+    public function setBody(array $body, bool $overwrite = false): HabitueInterface;
 
-    public function post(string $url, array $data = []): ResponseInterface;
+    public function get($key = null);
 
-    public function patch(string $url, array $data = []): ResponseInterface;
+    public function post($key = null);
 
-    public function put(string $url, array $data = []): ResponseInterface;
+    public function patch($key = null);
 
-    public function delete(string $url, array $data = []): ResponseInterface;
+    public function put($key = null);
 
-    public static function make($client = null): HabitueInterface;
+    public function delete($key = null);
 }
