@@ -88,4 +88,14 @@ class HabitueTest extends TestCase
 
         $this->assertEquals('Hello, World', $response->collect()->get('data'));
     }
+
+    public function testChainedRequest()
+    {
+        $response = $this->habitue->get('ninja', ['data' => 'aaa'])
+            ->then(function (Response $response) {
+                return $this->habitue->post('related-names', ['text' => $response->collect()->get('data')]);
+        });
+
+        $this->assertEquals('welcome', $response->collect()->get('data'));
+    }
 }

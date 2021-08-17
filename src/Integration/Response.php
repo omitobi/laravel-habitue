@@ -2,6 +2,7 @@
 
 namespace Habitue\Integration;
 
+use Closure;
 use Habitue\Contracts\CollectorInterface;
 use Habitue\Contracts\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as GuzzleResponseInterface;
@@ -65,13 +66,18 @@ class Response implements ResponseInterface
         return $this->collectable->toJson();
     }
 
-    public static function make($response): ResponseInterface
+    public function then(callable $caller): ResponseInterface
     {
-        return new static($response);
+        return $caller($this);
     }
 
     public function __toString(): string
     {
         return $this->unwrap();
+    }
+
+    public static function make($response): ResponseInterface
+    {
+        return new static($response);
     }
 }
