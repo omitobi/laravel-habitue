@@ -2,6 +2,7 @@
 namespace Habitue\Tests;
 
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use Habitue\Clients\GuzzleClient;
 use Habitue\Habitue;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
@@ -26,41 +27,51 @@ class HabitueTest extends TestCase
 
         [$this->mock, ,$this->client] = GuzzleMocker::prepareGuzzleMock();
 
-        $this->habitue = new Habitue($this->client);
+        GuzzleClient::mock($this->client);
+    }
+
+    public function testHelper()
+    {
+        $this->assertInstanceOf(HabitueInterface::class, habitue('abc', []));
     }
 
     public function testMake()
     {
-        $habitue = Habitue::make();
+        $habitue = Habitue::make('http://ninja.example');
 
         $this->assertInstanceOf(HabitueInterface::class, $habitue);
     }
 
     public function testPostSuccess()
     {
-        $response = $this->habitue->post('ninja', ['data' => 'aaa']);
+        /**
+         * @var Collector $response
+         */
+        $response = habitue('http://ninja.example')->post();
 
-        $this->assertInstanceOf(Response::class, $response);
+        //todo.test config
 
-        $this->assertEquals('Hello, World', $response->collect()->get('data'));
+        $this->assertInstanceOf(Collector::class, $response);
+
+        $this->assertEquals('Hello, World', $response->get('data'));
     }
 
     public function testPatchSuccess()
     {
-        $response = $this->habitue->patch('ninja', ['data' => 'aaa']);
+        $response = habitue('http://ninja.example')->patch();
 
-        $this->assertInstanceOf(Response::class, $response);
+        $this->assertInstanceOf(Collector::class, $response);
 
-        $this->assertEquals('Hello, World', $response->collect()->get('data'));
+        $this->assertEquals('Hello, World', $response->get('data'));
     }
 
     public function testPutSuccess()
     {
-        $response = $this->habitue->put('ninja', ['data' => 'aaa']);
+        $response = habitue('ninja', ['data' => 'aaa'])->put();
 
-        $this->assertInstanceOf(Response::class, $response);
+        $this->assertInstanceOf(Collector::class, $response);
 
-        $this->assertEquals('Hello, World', $response->collect()->get('data'));
+        $this->assertEquals('Hello, World', $response->get('data'));
     }
 
     public function testDeleteSuccess()
@@ -69,33 +80,30 @@ class HabitueTest extends TestCase
 
         $this->mock->append(new GuzzleResponse(204, [], "[]"));
 
-        $response = $this->habitue->delete('ninja');
+        $response = habitue('ninja')->delete();
 
-        $this->assertInstanceOf(Response::class, $response);
+        $this->assertInstanceOf(Collector::class, $response);
 
-        $this->assertEmpty($response->collect());
+        $this->assertEmpty($response);
     }
 
     public function testGetSuccess()
     {
-        $response = $this->habitue->get('ninja', ['data' => 'aaa']);
+        $response = $response = habitue('/ninja')->get();
 
-        $this->assertInstanceOf(Response::class, $response);
+        $this->assertInstanceOf(Collector::class, $response);
 
-        $this->assertInstanceOf(Collector::class, $response->collect());
+        $this->assertInstanceOf(Collector::class, $response);
 
-        $this->assertInstanceOf(Collection::class, $response->collect());
+        $this->assertInstanceOf(Collection::class, $response);
 
-        $this->assertEquals('Hello, World', $response->collect()->get('data'));
+        $this->assertEquals('Hello, World', $response->get('data'));
     }
 
-    public function testChainedRequest()
+    public function testGetDataFromResponseDirectly()
     {
-        $response = $this->habitue->get('ninja', ['data' => 'aaa'])
-            ->then(function (Response $response) {
-                return $this->habitue->post('related-names', ['text' => $response->collect()->get('data')]);
-        });
+        $response = $response = habitue('/ninja')->get('data');
 
-        $this->assertEquals('welcome', $response->collect()->get('data'));
+        $this->assertEquals('Hello, World', $response);
     }
 }

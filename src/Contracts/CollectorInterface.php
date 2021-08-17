@@ -2,10 +2,13 @@
 
 namespace Habitue\Contracts;
 
-use Tightenco\Collect\Support\Collection;
-use Habitue\Integration\Collectable;
-
 interface CollectorInterface
 {
-    public function detach();
+    public function setResponse(ClientResponseInterface $clientResponse);
+
+    public function response(): ClientResponseInterface;
+
+    public function statusCode(): int;
+
+    public function headers(): array;
 }

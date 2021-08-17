@@ -3,15 +3,15 @@
 namespace Habitue\Tests;
 
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
-use Habitue\Contracts\ResponseInterface;
+use Habitue\Integration\ClientResponse;
 use Habitue\Integration\Collector;
-use Habitue\Integration\Response;
+use Habitue\Integration\HabitueResponse;
 use PHPUnit\Framework\TestCase;
 use Tightenco\Collect\Support\Collection;
 
 class ResponseTest extends TestCase
 {
-    private Response $response;
+    private Collector $response;
     private GuzzleResponse $guzzleResponse;
     private array $body;
     private array $headers;
@@ -24,62 +24,45 @@ class ResponseTest extends TestCase
         $this->body = ['data' => 'Hello, World'];
 
         $this->guzzleResponse = new GuzzleResponse(200, $this->headers, json_encode($this->body));
-        $this->response = new Response($this->guzzleResponse);
-    }
 
-    public function testMake()
-    {
-        $this->assertInstanceOf(ResponseInterface::class, Response::make($this->guzzleResponse));
+        $this->response = (new HabitueResponse(
+            new ClientResponse(
+                $this->guzzleResponse->getBody()->getContents(),
+                $this->guzzleResponse->getStatusCode(),
+                $this->guzzleResponse->getHeaders()
+            )
+        ))->respond();
     }
 
     public function testCollect()
     {
-        $this->assertInstanceOf(Collector::class, $this->response->collect());
-        $this->assertInstanceOf(Collection::class, $this->response->collect());
+        $this->assertInstanceOf(Collector::class, $this->response);
+        $this->assertInstanceOf(Collection::class, $this->response);
     }
 
     public function testGetStatusCode()
     {
-        $this->assertEquals($this->guzzleResponse->getStatusCode(), $this->response->getStatusCode());
+        $this->assertEquals($this->guzzleResponse->getStatusCode(), $this->response->statusCode());
     }
 
     public function testGetHeaders()
     {
-        $this->assertEquals($this->guzzleResponse->getHeaders(), $this->response->getHeaders());
+        $this->assertEquals($this->guzzleResponse->getHeaders(), $this->response->headers());
     }
 
-    public function testGetWrapped()
-    {
-        $this->assertEquals($this->guzzleResponse, $this->response->getWrapped());
-    }
 
     public function testJson()
     {
-        $this->assertTrue(is_string($this->response->json()));
-        $this->assertEquals(json_encode($this->body), $this->response->json());
+        $this->assertTrue(is_string($this->response->toJson()));
+        $this->assertEquals(json_encode($this->body), $this->response->toJson());
     }
 
     public function testArray()
     {
-        $this->assertTrue(is_array($this->response->array()));
+        $this->assertTrue(is_array($this->response->toArray()));
         $this->assertEquals(
             $this->body,
-            $this->response->array()
+            $this->response->toArray()
         );
-    }
-
-    public function testThen()
-    {
-        $response = $this->response->then(function ($response) {
-            $this->assertInstanceOf(ResponseInterface::class, $response);
-
-            return $response;
-        })->then(function ($response) {
-            $this->assertInstanceOf(ResponseInterface::class, $response);
-
-            return $response;
-        });
-
-        $this->assertInstanceOf(ResponseInterface::class, $response);
     }
 }
