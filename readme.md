@@ -24,7 +24,7 @@ or add to the require object of `composer.json` file with the version number:
 ```json
 {
   "require": {
-    "omitobisam/laravel-habitue": "v7.0" 
+    "omitobisam/laravel-habitue": "^v3.0" 
   }
 }
 ```
@@ -33,60 +33,59 @@ After this run `composer update`
 
 ## Usage
 
+You can call the helper function simply:
+
+```php
+$response = habitue('http://ninja.example/users')->get();
+$response = habitue('http://ninja.example/users', ['data' => 'aaa'])->post();
+$response = habitue('http://ninja.example/users')->delete();
+$response = habitue('http://ninja.example/users', ['data' => 'aaa'])->patch();
+
+$response->get('data')
+```
+
 You can call it simply statically:
 
 ```php
 use Habitue\Habitue;
+Habitue::::make('http://ninja.example/api/users')->get(); // or ->post() 
 
-// or simply
-Habitue::make() // An instance of Habitue
-
-->setBody(['page' => 2]) //set body
-
-->setHeaders(['x-key' => 'abcd']) // set header(s)
-
-->get('https//abc.example/ninjas'); // or ->post() 
 ```
 
-Or you can wire it up in your class:
+With Configuration:
 
 ```php
 use Habitue\Habitue;
-
-class RequestService {
-    
-    private Habitue $habitue;
-
-    public function __construct(Habitue $habitue)
-    {       
-        $this->habitue = $habitue;
-    }
-}
+// or simply
+Habitue::::make('http://ninja.example/api/users') // An instance of Habitue
+->setBody(['page' => 2]) //set body
+->setHeaders(['x-key' => 'abcd']) // set header(s)
+->get()
 ```
 
-Then call the methods to make the http request:
+Handling Responses returned:
 
 ```php
 use Habitue\Habitue;
 
 /**
-* @var $response \Habitue\Integration\Response
+* @var $response Habitue\Integration\Collector
 */
-$response = Habitue::make()
-    ->get('https://ninja.example/users');
+$response = habitue('http://ninja.example/users')->get();
 
-$response->json(); //returns json string of the response body
+$response->statusCode(); // int
+$response->headers(); // array
+$response->toJson(); // string
+// And others method available in Illuminate\Collection
 
-$response->array(); // returns array value of the response body
 
-$response->getStatusCode(); //returns status code
-
-$response->getHeaders(); // returns the headers
-
-$response->collect(); // returns the response body in an instance of Habitue\Collector 
+$clientResponse = $response->response(); // Habitue\Integration\ClientResponse
+$clientResponse->getData(); // string
+$clientResponse->getStatusCode(); // int
+$clientResponse->getHeaders(); // array
 ```
 
-The `collect` method is a smart Collection that provides all the methods available in Laravel Collection and helps to draw out values deeply nested into the response.
+The Response (as Habitue\Integration\Collector) is a smart Collection that provides all the methods available in Laravel Collection and helps to draw out values deeply nested into the response.
 Say your response is the following:
 
 ```json
@@ -112,9 +111,7 @@ use Habitue\Habitue;
 /**
 * @var $collected \Habitue\Integration\Collector
 */
-$collected = Habitue::make()
-    ->get('https://ninja.example/users')
-    ->collect();
+$collected = \habitue('https://ninja.example/users')->get();
 
 $collected->get('name'); //John Doe
 
@@ -132,36 +129,34 @@ $collected->getAddress() // Collection with {"postal": {"code":"11111","region":
 ### Habitue class
 
 ```php
-\Habitue\Habitue::__construct(Client $client): void
-\Habitue\Habitue::setHeaders(): HabitueInterface
-\Habitue\Habitue::setBody(): HabitueInterface
-\Habitue\Habitue::get(string $url, array $data = []): ResponseInterface
-\Habitue\Habitue::post(string $url, array $data = []): ResponseInterface
-\Habitue\Habitue::patch(string $url, array $data = []): ResponseInterface
-\Habitue\Habitue::put(string $url, array $data = []): ResponseInterface
-\Habitue\Habitue::delete(string $url, array $data = []): ResponseInterface
-\Habitue\Habitue::make($client = null): HabitueInterface
+Habitue::__construct(url: string, [data: array = [...]], [config: array = [...]])
+Habitue::setHeaders(headers: array, [overwrite: bool = false]): HabitueInterface
+Habitue::setBody(body: array, [overwrite: bool = false]): HabitueInterface
+Habitue::get([key = null]): HabitueResponse.getReturn)(.(1))|HabitueResponse.getReturn∆s|\#E#π(#M#C\Habitue\Integration\HabitueResponse.getReturn)|\#E#π(#M#S\Habitue\Integration\HabitueResponse.getReturn)|Collector|mixed|null|string
+Habitue::post([key = null]): HabitueResponse.getReturn)(.(1))|HabitueResponse.getReturn∆s|\#E#π(#M#C\Habitue\Integration\HabitueResponse.getReturn)|\#E#π(#M#S\Habitue\Integration\HabitueResponse.getReturn)|Collector|mixed|null|string
+Habitue::patch([key = null]): Collector
+Habitue::put([key = null]): Collector
+Habitue::delete([key = null]): Collector
+Habitue::respond([key = null]): HabitueResponse.getReturn)(.(1))|HabitueResponse.getReturn∆s|\#E#π(#M#C\Habitue\Integration\HabitueResponse.getReturn)|\#E#π(#M#S\Habitue\Integration\HabitueResponse.getReturn)|Collector|mixed|null|string
+Habitue::getResponse(): ClientResponse
+Habitue::make(url: string, [data: array = [...]], [config: array = [...]]): HabitueInterface
 ```
 
-### Response Class
+### ClientResponse Class
 
 ```php
-\Habitue\Integration\Response::__construct(): void
-\Habitue\Integration\Response::collect(): CollectorInterface
-\Habitue\Integration\Response::array(): array
-\Habitue\Integration\Response::json(): string
-\Habitue\Integration\Response::getStatusCode(): int
-\Habitue\Integration\Response::getHeaders(): array
-\Habitue\Integration\Response::getWrapped(): GuzzleResponseInterface
-\Habitue\Integration\Response::make($response): ResponseInterface
-\Habitue\Integration\Response::__toString(): string
+ClientResponse::__construct(data: string, statusCode: int, headers: array)
+ClientResponse::getData(): string
+ClientResponse::getStatusCode(): int
+ClientResponse::getHeaders(): array
+ClientResponse::__toString(): string
 ```
 
 ## Contributions
 
-- Create an issue
 - Make a PR
+- Make sure the tests passes
 - It gets it approved
-- It gets gets merged
+- It gets merged
 
 

@@ -4,7 +4,7 @@ namespace Habitue\Integration;
 
 use Habitue\Contracts\ClientResponseInterface;
 use Habitue\Traits\MagicGetter;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 use Habitue\Contracts\CollectorInterface;
 
 class Collector extends Collection implements CollectorInterface

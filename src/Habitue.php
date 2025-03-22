@@ -22,12 +22,12 @@ class Habitue extends AbstractHabitue implements HabitueInterface
 
     private array $data;
 
-    public function __construct(string $url, array $data = [])
+    public function __construct(string $url, array $data = [], array $config = [])
     {
         $this->url = $url;
         $this->data = $data;
 
-        $this->initializeClient();
+        $this->initializeClient($config);
     }
 
     public function setHeaders(array $headers, bool $overwrite = false): HabitueInterface
@@ -95,8 +95,8 @@ class Habitue extends AbstractHabitue implements HabitueInterface
         return $this->response;
     }
 
-    public static function make(string $url, array $data = []): HabitueInterface
+    public static function make(string $url, array $data = [], array $config = []): HabitueInterface
     {
-        return new static($url, $data);
+        return new static($url, $data, $config);
     }
 }
