@@ -132,14 +132,14 @@ $collected->getAddress() // Collection with {"postal": {"code":"11111","region":
 Habitue::__construct(url: string, [data: array = [...]], [config: array = [...]])
 Habitue::setHeaders(headers: array, [overwrite: bool = false]): HabitueInterface
 Habitue::setBody(body: array, [overwrite: bool = false]): HabitueInterface
-Habitue::get([key = null]): HabitueResponse.getReturn)(.(1))|HabitueResponse.getReturn∆s|\#E#π(#M#C\Habitue\Integration\HabitueResponse.getReturn)|\#E#π(#M#S\Habitue\Integration\HabitueResponse.getReturn)|Collector|mixed|null|string
-Habitue::post([key = null]): HabitueResponse.getReturn)(.(1))|HabitueResponse.getReturn∆s|\#E#π(#M#C\Habitue\Integration\HabitueResponse.getReturn)|\#E#π(#M#S\Habitue\Integration\HabitueResponse.getReturn)|Collector|mixed|null|string
-Habitue::patch([key = null]): Collector
-Habitue::put([key = null]): Collector
-Habitue::delete([key = null]): Collector
-Habitue::respond([key = null]): HabitueResponse.getReturn)(.(1))|HabitueResponse.getReturn∆s|\#E#π(#M#C\Habitue\Integration\HabitueResponse.getReturn)|\#E#π(#M#S\Habitue\Integration\HabitueResponse.getReturn)|Collector|mixed|null|string
+Habitue::get([key = null]): HabitueResponse.getReturn): Collector|mixed // Depends on the type of configuration at config: 'habitue.return'
+Habitue::post([key = null]): Collector|mixed // Depends on the type of configuration at config: 'habitue.return'
+Habitue::patch([key = null]): Collector|mixed // Depends on the type of configuration at config: 'habitue.return'
+Habitue::put([key = null]): Collector|mixed // Depends on the type of configuration at config: 'habitue.return'
+Habitue::delete([key = null]): Collector|mixed // Depends on the type of configuration at config: 'habitue.return'
 Habitue::getResponse(): ClientResponse
 Habitue::make(url: string, [data: array = [...]], [config: array = [...]]): HabitueInterface
+
 ```
 
 ### ClientResponse Class
