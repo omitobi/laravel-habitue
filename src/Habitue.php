@@ -95,8 +95,8 @@ class Habitue extends AbstractHabitue implements HabitueInterface
         return $this->response;
     }
 
-    public static function make(string $url, array $data = []): HabitueInterface
+    public static function make(string $url, array $data = [], array $config = []): HabitueInterface
     {
-        return new static($url, $data);
+        return new static($url, $data, $config);
     }
 }

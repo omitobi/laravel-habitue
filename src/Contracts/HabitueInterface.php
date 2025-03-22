@@ -6,7 +6,7 @@ use Habitue\Integration\Collector;
 
 interface HabitueInterface
 {
-    public static function make(string $url, array $body = []): HabitueInterface;
+    public static function make(string $url, array $data = [],  array $config = []): HabitueInterface;
 
     public function setHeaders(array $data, bool $overwrite = false): HabitueInterface;
 
