@@ -11,7 +11,7 @@
 </p>
 
 ## About Habitue
-An Http Client with the power of collections for your jsonable requests. Usable on Laravel and non-laravel php project.
+The easiest and fluent HTTP Client for PHP.
 
 ## Installation
 
