@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-<a href="https://travis-ci.com/omitobi/laravel-habitue"> <img src="https://travis-ci.com/omitobi/laravel-habitue.svg?branch=master" alt="Build Status"/></a>
+<a href="https://omitobi.github.io/laravel-habitue/"> <img src="hhttps://github.com/omitobi/laravel-habitue/actions/workflows/php.yml/badge.svg" alt="Build Status"/></a>
 <a href="https://packagist.org/packages/omitobisam/laravel-habitue"> <img src="https://poser.pugx.org/omitobisam/laravel-habitue/version" alt="Latest Stable Version"/></a>
 <a href="https://packagist.org/packages/omitobisam/laravel-habitue"> <img src="https://poser.pugx.org/omitobisam/laravel-habitue/downloads" alt="Total Downloads"/></a>
 <a href="https://packagist.org/packages/omitobisam/laravel-habitue"> <img src="https://poser.pugx.org/omitobisam/laravel-habitue/v/unstable" alt="Latest Unstable Version"/></a>
