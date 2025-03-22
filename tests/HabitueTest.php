@@ -6,12 +6,11 @@ use Habitue\Clients\GuzzleClient;
 use Habitue\Habitue;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
-use Habitue\Integration\Response;
 use Habitue\Integration\Collector;
 use GuzzleHttp\Handler\MockHandler;
 use Habitue\Tests\Helpers\GuzzleMocker;
 use Habitue\Contracts\HabitueInterface;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class HabitueTest extends TestCase
 {
@@ -105,5 +104,29 @@ class HabitueTest extends TestCase
         $response = $response = habitue('/ninja')->get('data');
 
         $this->assertEquals('Hello, World', $response);
+    }
+
+    public function testRealCall(): void
+    {
+        // Use realClient.
+        GuzzleClient::unMock();
+
+        $response = habitue('http://example.com')->setHeaders([
+            'Content-Type' => 'text/html',
+        ], true)->get();
+
+        $this->assertInstanceOf(Collector::class, $response);
+        $this->assertEquals(200, $response->response()->getStatusCode());
+        $this->assertStringContainsString('Example Domain', $response->response()->getData());
+
+        // Let's use headers set from the config.
+        $response = habitue('http://example.com', [], [
+            'Content-Type' => 'text/html',
+        ])->get();
+
+        $this->assertInstanceOf(Collector::class, $response);
+        $this->assertEquals(200, $response->response()->getStatusCode());
+        $this->assertStringContainsString('Example Domain', $response->response()->getData());
+        $this->assertEquals('text/html', $response->headers()['Content-Type'][0]);
     }
 }

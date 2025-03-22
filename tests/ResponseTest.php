@@ -7,7 +7,7 @@ use Habitue\Integration\ClientResponse;
 use Habitue\Integration\Collector;
 use Habitue\Integration\HabitueResponse;
 use PHPUnit\Framework\TestCase;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ResponseTest extends TestCase
 {

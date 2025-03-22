@@ -4,29 +4,30 @@ namespace Habitue\Integration;
 
 use Habitue\Clients\GuzzleClient;
 use Habitue\Contracts\ClientInterface;
+use Habitue\Contracts\HabitueInterface;
 
 abstract class AbstractHabitue
 {
     protected ClientInterface $client;
 
-    protected function initializeClient()
+    protected function initializeClient(array $config = []): void
     {
         if ($this->getClientName() === 'guzzle') {
-            $this->client = $this->getGuzzleClient();
+            $this->client = $this->getGuzzleClient($config);
         } else {
-            $this->client = $this->getGuzzleClient();
+            $this->client = $this->getGuzzleClient($config);
         }
     }
 
-    protected function getGuzzleClient()
+    protected function getGuzzleClient(array $config = []): GuzzleClient
     {
         $options = $this->getDefaultOptions();
 
         if (function_exists('app')) {
-            return app(GuzzleClient::class, $options);
+            return app(GuzzleClient::class, $config + $options);
         }
 
-        return new GuzzleClient($options);
+        return new GuzzleClient($config + $options);
     }
 
     protected function getClientName()

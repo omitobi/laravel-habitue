@@ -76,11 +76,15 @@ class GuzzleClient implements ClientInterface
     public function setHeaders(array $data, bool $overwrite = false): ClientInterface
     {
         $this->options['headers'] = $overwrite ? $data : $this->options['headers'] + $data;
+
+        return $this;
     }
 
     public function setBody(array $body, bool $overwrite = false): ClientInterface
     {
         $this->body = $overwrite ? $body : $this->body + $body;
+
+        return $this;
     }
 
     private function client()
@@ -96,5 +100,10 @@ class GuzzleClient implements ClientInterface
         self::$mocked = $value;
 
         self::$mockedClient = $client;
+    }
+
+    public static function unMock(): void
+    {
+        self::$mocked = false;
     }
 }
